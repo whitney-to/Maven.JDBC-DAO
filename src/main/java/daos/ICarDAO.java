@@ -5,6 +5,7 @@ import java.util.List;
 import models.CarDTO;
 
 public interface ICarDAO {
+
     public CarDTO findById(int id);
 
     public List<CarDTO> findAll();
