@@ -7,6 +7,10 @@ public class App {
 
     public static void main(String[] args) {
         CarDAO carDAO = new CarDAO();
-        System.out.println(carDAO.findById(1).toString());
+        // System.out.println(carDAO.findById(1).toString());
+        carDAO.findAll().forEach(car -> {
+            System.out.println(car.toString());
+        });
+
     }
 }
