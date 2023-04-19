@@ -46,8 +46,24 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public CarDTO update(CarDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        try {
+            PreparedStatement ps = connection
+                    .prepareStatement("UPDATE cars SET make=?, model=?,year=?,color=?,vin=? WHERE id=?");
+            ps.setString(1, dto.getMake());
+            ps.setString(2, dto.getModel());
+            ps.setInt(3, dto.getYear());
+            ps.setString(4, dto.getColor());
+            ps.setString(5, dto.getVin());
+            ps.setInt(6, dto.getId());
+
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return dto;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -73,8 +89,14 @@ public class CarDAO implements ICarDAO {
 
     @Override
     public void delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            PreparedStatement ps = connection
+                    .prepareStatement("DELETE FROM cars WHERE id=?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private CarDTO extractCarFromResultSet(ResultSet rs) throws SQLException {
